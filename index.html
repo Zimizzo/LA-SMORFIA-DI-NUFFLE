@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6b2fa0">
+<title>BOLOGNABOWL - LA SMORFIA DI NUFFLE</title>
+<style>
+:root{--bg:#fbf3e6;--card:#fffdf8;--ink:#2b1a17;--mut:#6f5a52;--acc:#b3202a;--ok:#1d6b3a;--line:#e3cfb8;--mark:#f6d36b;--me:#c9971c;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#12251c;--card:#1d3328;--ink:#fbeedd;--mut:#bfae9c;--acc:#ff6b6b;--ok:#6fd08c;--line:#3c5a48;--mark:#8a6a14;--me:#ffd166;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.35;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1{margin:0 0 1rem;font-size:1.5rem;color:#6b2fa0;-webkit-text-stroke:6px #fff;paint-order:stroke fill;text-shadow:2px 2px 0 #b58be0;letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:14px 10px;border-radius:12px;border:3px double var(--ok);background:var(--card)}
+button,input{font:inherit;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+button{cursor:pointer}input{min-width:0}
+button.pri,button.on{background:var(--ok);color:#fff;border-color:var(--ok)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.intro,.panel{background:var(--card);border:3px double var(--ok);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center}
+.panel{text-align:left;border:1px solid var(--line);border-radius:10px;padding:12px}
+.intro{font-size:1.08rem}
+.big{font-size:1.8rem;font-weight:bold;color:#6b2fa0;-webkit-text-stroke:6px #fff;paint-order:stroke fill;text-shadow:2px 2px 0 #b58be0;margin:14px 0}
+.msg{font-size:.85rem;color:var(--mut);margin:6px 0}
+h3{margin:0 0 8px;color:var(--acc)}
+.pick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.pick button{padding:14px 0;font-weight:bold}
+.lk{display:flex;gap:8px;align-items:center;margin:6px 0;font-size:.85rem;flex-wrap:wrap}
+.lk b{min-width:5.5rem}.lk code{color:var(--mut);word-break:break-all;flex:1}
+.sheet{background:var(--card);border:2px solid var(--ok);border-radius:10px;padding:10px;box-shadow:0 3px 0 var(--acc)}
+.sheet::before{content:"";display:block;height:8px;margin:-4px -4px 8px;border-radius:6px;background:repeating-linear-gradient(45deg,var(--acc) 0 10px,#fff 10px 20px)}
+.sheet h2{margin:0 0 2px;font-size:1.1rem;color:var(--acc);display:flex;justify-content:space-between;align-items:center;gap:6px}
+.badge{font-size:.75rem;padding:2px 8px;border-radius:99px;background:var(--ok);color:#fff}
+.hint{font-size:.8rem;color:var(--mut);margin:0 0 8px}
+.cells{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(3,1fr);gap:6px}
+.cell{display:flex;gap:6px;align-items:flex-start;text-align:left;padding:8px;min-height:84px;font-size:.88rem;border:1px solid var(--line);border-radius:6px}
+.cell b{color:var(--acc);font-size:1rem;min-width:1.4rem}
+.cell.m,.ev.m{background:var(--mark);color:#2b1a17}.cell.m b::after{content:" ⭐"}
+.list{display:grid;gap:6px}
+.ev{display:flex;gap:8px;text-align:left;align-items:flex-start;font-size:.92rem}
+.ev b{color:var(--acc);min-width:1.6rem}.ev.mine{border-color:var(--me);border-width:2px}
+.hide{display:none!important}
+#snow{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+#snow span{position:absolute;top:-2rem;color:#fff;text-shadow:0 0 3px rgba(80,120,160,.7);animation:fall linear infinite}
+@keyframes fall{to{transform:translate(30px,110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#snow{display:none}}
+</style>
+</head>
+<body>
+<div id="snow" aria-hidden="true"></div>
+<div class="wrap">
+<h1>🎄 BOLOGNABOWL - LA SMORFIA DI NUFFLE 🎅</h1>
+
+<section id="home">
+ <div class="intro">
+  <p>Tutti i coach sanno che il periodo di Natale è il preferito degli allibratori e di tutti quei fans che adorano scommettere!</p>
+  <p>Per questo ogni solstizio d’inverno piccoli goblin vestiti in modo buffo fanno circolare clandestinamente</p>
+  <p class="big">LA SMORFIA DI NUFFLE!</p>
+  <p>Una lista degli eventi più nefasti e divertenti che possono verificarsi durante una partita di Blood Bowl.</p>
+  <p>Armatevi della vostra cartella e sfidatevi nella TOMBOLA più sanguinosa e pazza che Nuffle abbia mai visto.</p>
+  <p><b>Chi riuscirà a completare tutte le caselle?</b></p>
+ </div>
+ <div class="panel">
+  <h3>Scegli nickname e cartella</h3>
+  <div class="bar"><input id="nick" maxlength="20" placeholder="Il tuo nickname" style="flex:1" autocomplete="off"></div>
+  <div class="pick" id="pick"></div>
+  <p class="msg">Cartella e segni restano su questo telefono. Chi organizza assegna i numeri: più persone possono scegliere lo stesso, quindi mettetevi d’accordo.</p>
+ </div>
+ <div class="panel">
+  <h3>Lista degli eventi</h3>
+  <p class="msg">I 30 eventi della Smorfia di Nuffle. Quando uno si verifica, segnalo sulla tua cartella.</p>
+  <div id="evHome"></div>
+ </div>
+ <div class="panel">
+  <h3>Per chi organizza</h3>
+  <div class="bar">
+   <label>Numero di cartelle <input id="n" type="number" min="1" max="40" value="10" style="width:5rem"></label>
+   <button class="pri" id="gen">🎲 GENERA CARTELLE CASUALI</button>
+   <button id="def">USA CARTELLE PREDEFINITE</button>
+  </div>
+  <p class="msg" id="cfgMsg"></p>
+  <p class="msg">Ogni volta che generi nuove cartelle cambiano anche i link: rimanda a tutti quelli nuovi. Ogni amico, aprendo il link, vedrà le tue stesse cartelle.</p>
+  <div class="bar"><button class="pri" id="shHome">📤 Condividi la pagina</button></div>
+  <div id="links"></div>
+ </div>
+</section>
+
+<section id="game" class="hide">
+ <div class="bar">
+  <button id="back">← Cambia cartella</button>
+  <button id="sh">📤 Condividi</button>
+  <input id="nick2" maxlength="20" placeholder="Nickname" style="flex:1;min-width:130px" autocomplete="off">
+ </div>
+ <div class="bar"><button id="tm" class="on">🎄 La mia cartella</button><button id="te">🎁 Eventi</button><button id="rs">Azzera segni</button></div>
+ <section id="mysec"><div class="sheet" id="sheet"></div></section>
+ <section id="evsec" class="hide"><p class="msg">Tocca un evento quando si verifica: si segna sulla tua cartella.</p><div class="list" id="list"></div></section>
+</div>
+
+<script>
+function rng(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}let a=h>>>0;
+ return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function cardOK(p){const g=[];for(let i=0;i<5;i++)g.push(p[i+1]-p[i]);
+ if(g.some(x=>x<2))return false;
+ if(g.some((x,i)=>i<4&&x===g[i+1]))return false;
+ return p[5]-p[0]>=12}
+function attempt(r,N){const use=Array(31).fill(0),out=[];
+ for(let c=0;c<N;c++){let found=null;
+  for(let t=0;t<60&&!found;t++){
+   const ev=Array.from({length:30},(_,i)=>[i+1,r()]).sort((a,b)=>use[a[0]]-use[b[0]]||a[1]-b[1]);
+   const p=[];for(const [e] of ev){if(p.length===6)break;if(p.some(x=>Math.abs(x-e)<=1))continue;p.push(e)}
+   if(p.length===6){p.sort((a,b)=>a-b);if(cardOK(p))found=p}
+  }
+  if(!found)return null;found.forEach(e=>use[e]++);out.push(found)}
+ const v=use.slice(1);return Math.max(...v)-Math.min(...v)<=1?out:null}
+function relaxed(r,N){const use=Array(31).fill(0),out=[];
+ for(let c=0;c<N;c++){const ev=Array.from({length:30},(_,i)=>[i+1,r()]).sort((a,b)=>use[a[0]]-use[b[0]]||a[1]-b[1]);
+  const p=ev.slice(0,6).map(x=>x[0]).sort((a,b)=>a-b);p.forEach(e=>use[e]++);out.push(p)}
+ return out}
+function genCards(seed,N){const r=rng(seed+'|'+N);
+ for(let t=0;t<400;t++){const c=attempt(r,N);if(c)return c}
+ return relaxed(r,N)}
+const EV=["Un Big Guy attiva il suo negatrait","Doppio Uno","Doppio Sei","Fallisci un blocco a tre dadi sopra","Tiri un blocco a tre dadi sotto","Surfi un pezzo","Cadi su un Rush","Finisci i reroll","Vieni visto dall’arbitro durante un fallo","Autosubisci una casualty","Subisci Blitz come evento Kick-off","Il meteo è estremo: Sweltering Heat o Blizzard","Finisci i reroll prima del turno 4","Tutti i KO dell’avversario rientrano","Tutti i blocchi possibili sulla Line of Scrimmage mandano a terra i pezzi avversari","Fallisci un passaggio","Usi l’Apotecario ma il giocatore rimane nelle casualty","Touchback","Un Blitz in gabbia fa cadere la palla al portatore avversario","Usi due reroll in un turno","Doppio Teschio","Fallisci dopo aver usato un reroll","Fallisci un Dodge","Subisci una casualty al primo turno","Hai rimosso zero giocatori avversari alla fine di un drive","Segni una meta in un turno","Fallisci un Pick-up","La palla rimbalza in mano a un tuo pezzo e viene raccolta","Rischi la pietra per aver fatto stalling","Doppio Flash"];
+const DEFAULT=[[8,11,16,19,23,26],[2,9,14,17,24,27],[5,15,18,22,25,29],[1,4,10,13,21,28],[3,7,12,20,26,30],[3,6,10,15,19,24],[1,8,13,17,22,29],[5,9,12,16,23,28],[2,6,18,21,25,30],[4,7,11,14,20,27]];
+const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
+const LS=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+const base=()=>location.href.split('#')[0];
+
+// configurazione: seed + numero cartelle (nel link) -> stesse cartelle per tutti
+let cfg={seed:null,n:10},cards=DEFAULT,cur=0,nick=LS('bbo_nick')||'',drawn=new Set();
+const cfgId=()=>(cfg.seed||'def')+'_'+cfg.n;
+function readCfg(){
+ const p=new URLSearchParams(location.hash.slice(1));
+ const s=(p.get('s')||'').replace(/[^A-Za-z0-9]/g,'').slice(0,12),n=parseInt(p.get('n'));
+ if(s&&n>=1&&n<=40)return{cfg:{seed:s,n},c:parseInt(p.get('c'))||0};
+ const m=/^#cartella-(\d+)$/.exec(location.hash);
+ if(m)return{cfg:{seed:null,n:10},c:+m[1]};
+ try{const v=JSON.parse(LS('bbo_cfg')||'null');if(v&&v.seed&&v.n>=1&&v.n<=40)return{cfg:v,c:0}}catch(e){}
+ return{cfg:{seed:null,n:10},c:0};
+}
+const linkFor=c=>cfg.seed?base()+'#s='+cfg.seed+'&n='+cfg.n+'&c='+c:base()+'#cartella-'+c;
+const pageLink=()=>cfg.seed?base()+'#s='+cfg.seed+'&n='+cfg.n:base();
+
+async function share(btn,url,text){const old=btn.textContent;
+ try{if(navigator.share){await navigator.share({title:document.title,text,url});return}}catch(e){return}
+ try{await navigator.clipboard.writeText(url);btn.textContent='Link copiato ✓'}catch(e){btn.textContent='Copia il link a mano'}
+ setTimeout(()=>btn.textContent=old,2000)}
+
+for(let i=0;i<22;i++){const e=document.createElement('span');e.textContent='❄';e.style.left=Math.random()*100+'%';e.style.fontSize=(10+Math.random()*14)+'px';e.style.animationDuration=(9+Math.random()*10)+'s';e.style.animationDelay=(-Math.random()*15)+'s';e.style.opacity=.5+Math.random()*.5;$('snow').appendChild(e)}
+EV.forEach((t,i)=>{const d=document.createElement('div');d.className='lk';const b=document.createElement('b');b.textContent=pad(i+1);b.style.cssText='min-width:2rem;color:var(--acc)';const s=document.createElement('span');s.style.flex='1';s.textContent=t;d.append(b,s);$('evHome').appendChild(d)});
+
+$('nick').oninput=e=>{nick=e.target.value.trim().slice(0,20);LS('bbo_nick',nick)};
+$('nick2').oninput=e=>{nick=e.target.value.trim().slice(0,20);LS('bbo_nick',nick);if(cur)drawSheet()};
+
+function buildHome(){
+ $('n').value=cfg.n;
+ $('cfgMsg').textContent=cfg.seed?'Cartelle casuali attive: '+cfg.n+' cartelle (codice '+cfg.seed+').':'Cartelle predefinite attive: 10 cartelle.';
+ const pk=$('pick');pk.replaceChildren();const lk=$('links');lk.replaceChildren();
+ cards.forEach((_,i)=>{
+  const b=document.createElement('button');b.textContent=pad(i+1);
+  b.onclick=()=>{nick=$('nick').value.trim().slice(0,20);LS('bbo_nick',nick);location.hash=linkFor(i+1).split('#')[1]};
+  pk.appendChild(b);
+  const r=document.createElement('div');r.className='lk';
+  const l=document.createElement('b');l.textContent='Cartella '+pad(i+1);
+  const c=document.createElement('code');c.textContent=linkFor(i+1);
+  const cb=document.createElement('button');cb.textContent='Copia';
+  cb.onclick=async()=>{try{await navigator.clipboard.writeText(linkFor(i+1));cb.textContent='Copiato ✓'}catch(e){cb.textContent='Seleziona il link'}setTimeout(()=>cb.textContent='Copia',1800)};
+  const sb=document.createElement('button');sb.textContent='📤 Condividi';
+  sb.onclick=()=>share(sb,linkFor(i+1),'Ecco la tua cartella per la Smorfia di Nuffle!');
+  r.append(l,c,cb,sb);lk.appendChild(r);
+ });
+}
+const newSeed=()=>{const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=A[Math.floor(Math.random()*A.length)];return s};
+$('gen').onclick=()=>{const n=Math.max(1,Math.min(40,parseInt($('n').value)||10));const v={seed:newSeed(),n};LS('bbo_cfg',JSON.stringify(v));location.hash='s='+v.seed+'&n='+v.n;route()};
+$('def').onclick=()=>{LS('bbo_cfg','null');location.hash='';route()};
+$('shHome').onclick=()=>share($('shHome'),pageLink(),'Gioca con me alla Smorfia di Nuffle!');
+$('sh').onclick=()=>share($('sh'),pageLink(),'Gioca con me alla Smorfia di Nuffle!');
+
+function toggle(e){drawn.has(e)?drawn.delete(e):drawn.add(e);LS('bbo_d_'+cfgId(),JSON.stringify([...drawn]));drawSheet();drawList()}
+function drawSheet(){
+ const c=cards[cur-1],n=c.filter(e=>drawn.has(e)).length,s=$('sheet');s.replaceChildren();
+ const h=document.createElement('h2'),t=document.createElement('span');t.textContent='CARTELLA '+pad(cur)+(nick?' · '+nick:'');h.appendChild(t);
+ if(n>=5){const b=document.createElement('span');b.className='badge';b.textContent=n===6?'TOMBOLA!':'CINQUINA!';h.appendChild(b)}
+ const p=document.createElement('p');p.className='hint';p.textContent='Cinquina = 5 caselle · Tombola = 6 · '+n+'/6';
+ const cells=document.createElement('div');cells.className='cells';
+ c.forEach(e=>{const b=document.createElement('button');b.className='cell'+(drawn.has(e)?' m':'');
+  const bb=document.createElement('b');bb.textContent=pad(e);const sp=document.createElement('span');sp.textContent=EV[e-1];
+  b.append(bb,sp);b.onclick=()=>toggle(e);cells.appendChild(b)});
+ s.append(h,p,cells);
+}
+function drawList(){
+ const l=$('list');l.replaceChildren();
+ EV.forEach((t,i)=>{const e=i+1,b=document.createElement('button');
+  b.className='ev'+(drawn.has(e)?' m':'')+(cards[cur-1]&&cards[cur-1].includes(e)?' mine':'');
+  const bb=document.createElement('b');bb.textContent=pad(e);const sp=document.createElement('span');sp.textContent=t;
+  b.append(bb,sp);b.onclick=()=>toggle(e);l.appendChild(b)});
+}
+function setTab(x){$('mysec').classList.toggle('hide',x!=='m');$('evsec').classList.toggle('hide',x!=='e');$('tm').classList.toggle('on',x==='m');$('te').classList.toggle('on',x==='e')}
+$('tm').onclick=()=>setTab('m');$('te').onclick=()=>setTab('e');
+$('back').onclick=()=>{const h=cfg.seed?'s='+cfg.seed+'&n='+cfg.n:'';location.hash=h;route()};
+$('rs').onclick=()=>{drawn=new Set();LS('bbo_d_'+cfgId(),'[]');drawSheet();drawList()};
+
+function route(){
+ const r=readCfg();cfg=r.cfg;
+ cards=cfg.seed?genCards(cfg.seed,cfg.n):DEFAULT;
+ try{drawn=new Set(JSON.parse(LS('bbo_d_'+cfgId())||'[]'))}catch(e){drawn=new Set()}
+ if(r.c>=1&&r.c<=cards.length){cur=r.c;$('home').classList.add('hide');$('game').classList.remove('hide');$('nick2').value=nick;setTab('m');drawSheet();drawList();
+  if(!nick)setTimeout(()=>$('nick2').focus(),50)}
+ else{cur=0;$('game').classList.add('hide');$('home').classList.remove('hide');$('nick').value=nick;buildHome()}
+}
+addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
